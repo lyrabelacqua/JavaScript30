@@ -56,17 +56,68 @@
     }
 
     .hand {
-      width:50%;
-      height:6px;
+      width:6px;
+      height:50%;
       background:black;
       position: absolute;
-      top:50%;
+      left:50%;
+      transform-origin: 50% 100%;
+      
+      transition: all 0.1s cubic-bezier(0.34, 0, 0.42, 1.57);
+      
     }
+      
+    .hand-notrans {
+        transition: none;
+    }
+      
+    
 
   </style>
 
   <script>
-
+     
+      function setDate() {
+        
+        let now = new Date();
+        const secondHand = document.querySelector(".second-hand");
+        const minHand = document.querySelector(".min-hand");
+        const hourHand = document.querySelector(".hour-hand");
+        
+          
+          
+        
+        let seconds = now.getSeconds();
+        if (seconds == 59) {
+            secondHand.classList.add("hand-notrans");
+            minHand.classList.add("hand-notrans");
+            hourHand.classList.add("hand-notrans");
+        }
+          
+        if (seconds == 1 ) {
+            secondHand.classList.remove("hand-notrans");
+            minHand.classList.remove("hand-notrans");
+            hourHand.classList.remove("hand-notrans");
+        }
+        seconds = ((seconds/60) * 360);
+        secondHand.style.transform = `rotate(${seconds}deg)`;
+          
+        ;
+        let minutes = now.getMinutes();
+        minutes = ((minutes/60) * 360);
+        minHand.style.transform = `rotate(${minutes}deg)`;
+          
+        
+        let hour = now.getHours();
+        
+        hour = (hour/12)*360;
+        hourHand.style.transform = `rotate(${hour}deg)`;
+      }
+      
+     
+      
+      setInterval(setDate, 1000);
+      
 
   </script>
 </body>
