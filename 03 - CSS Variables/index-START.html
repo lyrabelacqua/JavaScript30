@@ -25,6 +25,13 @@
     /*
       misc styles, nothing to do with CSS variables
     */
+      
+    :root {
+        --base: #BADA55;
+        --spacing: 10px;
+        --blur: 10px;
+    }  
+      
 
     body {
       text-align: center;
@@ -45,9 +52,26 @@
     input {
       width:100px;
     }
+      
+    img {
+        padding: var(--spacing);
+        background-color: var(--base);
+        filter: blur(var(--blur));
+    }
   </style>
 
   <script>
+  const inputs = document.querySelectorAll('.controls input');
+  inputs.forEach((input) => {input.addEventListener('change', handleUpdate)});
+  inputs.forEach((input) => {input.addEventListener('mousemove', handleUpdate)});
+      
+function handleUpdate() {
+  let suffix = this.dataset.sizing || '';
+  let value = this.value + suffix;
+  document.documentElement.style.setProperty(`--${this.name}`,value);
+    
+}
+      
   </script>
 
 </body>
