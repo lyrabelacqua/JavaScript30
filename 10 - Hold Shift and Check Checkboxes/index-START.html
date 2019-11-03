@@ -104,6 +104,47 @@
   </div>
 
 <script>
+  let isShiftPressed = false;
+  let startItem = -1;
+  let endItem = -1;
+  document.addEventListener('keydown', (e) => { 
+    if (e.which === 16 && !isShiftPressed) {
+      isShiftPressed = true;
+    }
+  })
+  document.addEventListener('keyup', (e) => {
+    if (e.which === 16) {
+      isShiftPressed = false;
+    }
+    // if only the first element was selected, clear it
+    if (startItem !== -1 && endItem === -1) {
+      startItem = -1;
+    }
+  })
+
+  const checkboxes = [...document.querySelectorAll('input[type="checkbox"]')];
+  checkboxes.forEach((checkbox, index) => checkbox.addEventListener('change', function() {
+    
+    // check if shift is pressed and a checkbox was just checked
+    if (this.checked && isShiftPressed) {
+      // check if we have the first element already
+      
+      if (startItem === -1) {
+        startItem = index;
+      } else if (endItem === -1) {
+        endItem = index;
+        if (endItem < startItem) {
+          [endItem, startItem] = [startItem, endItem];
+        }
+        // check everything in between
+        checkboxes.slice(startItem + 1, endItem).forEach(checkbox => checkbox.checked = true);
+        // clear values
+        startItem = -1;
+        endItem = -1;
+        }
+    }
+  }));
+  
 </script>
 </body>
 </html>

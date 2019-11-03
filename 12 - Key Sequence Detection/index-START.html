@@ -7,6 +7,16 @@
 </head>
 <body>
 <script>
+let pressed = [];
+const secretCode = 'tiger';
+
+window.addEventListener('keyup', (e) => {
+  pressed = pressed.concat(e.key).slice(-secretCode.length);
+  if (pressed.join('').includes(secretCode)) {
+    cornify_add();
+  }
+})
+
 </script>
 </body>
 </html>
