@@ -15,7 +15,11 @@
 
   <div class="wrapper">
     <h2>LOCAL TAPAS</h2>
-    <p></p>
+    <p>
+        <button id="checkall">Check All</button>
+        <button id="deleteall">Delete All</button>       
+    </p>
+     
     <ul class="plates">
       <li>Loading Tapas...</li>
     </ul>
@@ -29,6 +33,8 @@
   const addItems = document.querySelector('.add-items');
   const itemsList = document.querySelector('.plates');
   const items = JSON.parse(localStorage.getItem('items')) || [];
+  const deleteButton = document.querySelector("#deleteall");
+  const checkButton = document.querySelector("#checkall");
     
     
   function populateList(plates = [], itemsList) {
@@ -61,10 +67,28 @@
        localStorage.setItem('items', JSON.stringify(items));
    }
     
+    
+   function deleteAll() {
+       populateList([], itemsList);
+       localStorage.removeItem('items');
+   }
+    
+   function checkAll() {
+       const checkedItems = items.map((item) => {
+           return {
+               ...item,
+               done: true,
+           }
+       })
+   }
+    
   addItems.addEventListener('submit', addItemToList);
   itemsList.addEventListener('click', toggleDone);
+  deleteButton.addEventListener('click', deleteAll);
+  checkButton.addEventListener('click', checkAll)
     
   populateList(items, itemsList);
+    
 
 </script>
 

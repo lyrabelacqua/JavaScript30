@@ -43,9 +43,14 @@
   <ul id="bands"></ul>
 
 <script>
+
 const bands = ['The Plot in You', 'The Devil Wears Prada', 'Pierce the Veil', 'Norma Jean', 'The Bled', 'Say Anything', 'The Midway State', 'We Came as Romans', 'Counterparts', 'Oh, Sleeper', 'A Skylit Drive', 'Anywhere But Here', 'An Old Dog'];
+    
+const sortedBands = ['The Plot in You', 'The Devil Wears Prada', 'Pierce the Veil', 'Norma Jean', 'The Bled', 'Say Anything', 'The Midway State', 'We Came as Romans', 'Counterparts', 'Oh, Sleeper', 'A Skylit Drive', 'Anywhere But Here', 'An Old Dog'].map(band => band.replace(/^The\s|^An?\s/, '') ).sort();
 
-
+const finalBands = bands.sort((a, b) => (sortedBands.findIndex(aIndex => a.includes(aIndex)) - sortedBands.findIndex(bIndex => b.includes(bIndex))));
+    
+document.getElementById('bands').innerHTML = finalBands.map(band => `<li>${band}</li>`).join('');
 </script>
 
 </body>
