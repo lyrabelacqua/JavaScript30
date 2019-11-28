@@ -32,7 +32,7 @@
 <script>
   const addItems = document.querySelector('.add-items');
   const itemsList = document.querySelector('.plates');
-  const items = JSON.parse(localStorage.getItem('items')) || [];
+  let items = JSON.parse(localStorage.getItem('items')) || [];
   const deleteButton = document.querySelector("#deleteall");
   const checkButton = document.querySelector("#checkall");
     
@@ -44,6 +44,13 @@
                     <label for="item${i}">${plate.text}</label>
                 </li>`
       }).join('');
+      if (!plates.length) {
+          checkButton.classList.add('hidden');
+          deleteButton.classList.add('hidden');
+      } else {
+          checkButton.classList.remove('hidden');
+          deleteButton.classList.remove('hidden');
+      }
   }
     
   function addItemToList(e) {
@@ -69,7 +76,8 @@
     
     
    function deleteAll() {
-       populateList([], itemsList);
+       items = [];
+       populateList(items, itemsList);
        localStorage.removeItem('items');
    }
     
@@ -80,6 +88,8 @@
                done: true,
            }
        })
+       populateList(checkedItems, itemsList);
+       localStorage.setItem('items', JSON.stringify(checkedItems))
    }
     
   addItems.addEventListener('submit', addItemToList);
