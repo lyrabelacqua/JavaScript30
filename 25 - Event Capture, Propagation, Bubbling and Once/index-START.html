@@ -39,7 +39,18 @@
 
 <button></button>
 <script>
+const divs = document.querySelectorAll('div');
 
+divs.forEach(div => div.addEventListener('click',logText, {capture: false, once: true}));
+    
+function logText(e) {
+    console.log(this.classList.value);
+    e.stopPropagation();
+}
+    
+// it only works once
+const button = document.querySelector('button');
+button.addEventListener('click', () => {console.log('Click')}, { once : true});
 </script>
 </body>
 </html>
