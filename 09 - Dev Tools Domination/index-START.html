@@ -9,6 +9,7 @@
   <p onClick="makeGreen()">×BREAK×DOWN×</p>
 
   <script>
+    
     const dogs = [{ name: 'Snickers', age: 2 }, { name: 'hugo', age: 8 }];
 
     function makeGreen() {
@@ -18,28 +19,49 @@
     }
 
     // Regular
-
+    console.log('Hello');
     // Interpolated
-
+    console.log('Hello %s', '😈');
     // Styled
-
+    console.log('%cThese are some big letters...', 'font-size: 20px; color: deepskyblue;');
     // warning!
-
+    console.warn('This is a warning!');
     // Error :|
-
+    console.error('This is an error!');
     // Info
-
+    console.info('Only serious programming here.');
     // Testing
-
+    console.assert(2 + 2 === 5, 'The year is 1984.');
+    const p = document.querySelector('p');
+    console.assert(p.classList.contains('cat'), 'This element has no cat in it...');
     // clearing
-
+    // console.clear();
     // Viewing DOM Elements
-
+    console.log(p);
+    console.dir(p);
     // Grouping together
 
-    // counting
+    dogs.forEach(dog => {
+      console.groupCollapsed(`${dog.name}`);
+      console.log(`This is ${dog.name}.`);
+      console.log(`${dog.name} is ${dog.age} old.`);
+      console.log(`${dog.name} is ${dog.age * 7} in dog years.`)
+      console.groupEnd(`${dog.name}`);
+    })
 
+    //table
+    console.table(dogs);
+
+    // counting
+    console.count('Tiger')
+    console.log('Tiger');
+    console.count('Tiger');
     // timing
+
+    console.time('very hard operation');
+    setTimeout(() => {
+      console.timeEnd('very hard operation');
+    }, 1000);
 
   </script>
 </body>
